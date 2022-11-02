@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>定位测试</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./location.js"></script>
+  </head>
+  <body>
+    <div id="msg">定位测试..</div>
+    <h4 style="margin-top: 20px">定位结果：</h4>
+    <div id="result"></div>
+    <button id="dingwei" style="margin-top: 20px">点击定位</button>
+    <script>
+      const msgDom = document.querySelector("#msg");
+      const dingwei = document.querySelector("#dingwei");
+      const result = document.querySelector("#result");
+      let isClick = false;
+      function locationFn() {
+        msgDom.innerHTML = "定位中..";
+        result.innerHTML = "";
+        if (isClick) {
+          return;
+        }
+        isClick = true;
+        mylocation
+          .getLocation()
+          .then((res) => {
+            isClick = false;
+            msgDom.innerHTML = "定位测试..";
+            result.innerHTML = JSON.stringify(res);
+          })
+          .catch((err) => {
+            isClick = false;
+            msgDom.innerHTML = "定位测试..";
+            result.innerHTML = JSON.stringify(err);
+          });
+      }
+      dingwei.addEventListener("touchend", locationFn);
+      dingwei.addEventListener("click", locationFn);
+    </script>
+  </body>
+</html>
